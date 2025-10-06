@@ -62,13 +62,13 @@ void initMPU(){
 
 // Convert an std::vector of foats to a json array in std::string representation
 std::string vectorToJSONArray(const std::vector<float> &data) {
-    //Serial.println("Vector to json");
+
     if (data.empty()) return "[],";
     std::string jsonString = "[";
     for (int i = 0; i < data.size(); ++i) {
-        //Serial.printf("Converting %f to ", data.data()[i]);
+        
         jsonString += std::to_string(data.data()[i]);
-        //Serial.printf("%s\n", std::to_string(data.data()[i]).c_str());
+        
         if (i + 1 < data.size()) jsonString += ",";
     }
     jsonString += "],";
@@ -202,12 +202,8 @@ std::string runLengthEncode(std::string str)
 // Delta Encoding
 std::vector<float> deltaEncode(std::vector<float> values) {
 
-    //Serial.printf("%i", ESP.getFreeHeap());
-
-    std::vector<float> result;//(values.size());            // Time complexity: O(1)
+    std::vector<float> result;// Time complexity: O(1)
     result.reserve(values.size());
-
-    //Serial.println("Reserved memory for result");
 
     // Cannot compress anything if the array consists of one element
     if (values.size()==1) return values;// Time complexity: O(1)
@@ -216,15 +212,10 @@ std::vector<float> deltaEncode(std::vector<float> values) {
     result.push_back(values.data()[0]);// Time complexity: O(1)
     // Calculate differences for each index and add those to the result
     for (int i = 1; i < values.size(); i++) {   // Time complexity O(n - 1)
-        //Serial.printf("calc index %i\n", i);
         float prev = values.data()[i-1];          // Time complexity: O(1)
         float curr = values.data()[i];            // Time complexity: O(1)
         result.push_back(curr - prev);          // Time complexity: O(1)
-        //Serial.printf("Added %f", curr - prev);
     }
-
-
-    //Serial.printf("%i,", ESP.getFreeHeap());
 
     return result;                              // Time complexity: O(1)
 }
