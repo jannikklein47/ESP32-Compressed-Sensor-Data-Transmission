@@ -276,13 +276,13 @@ std::unordered_map<char, std::string> generateHuffmanCodes(std::string s,std::ve
     
     // priority queue
 	std::priority_queue<Node*, std::vector<Node*>, Compare> pq;
-	for (int i=0; i<n; i++) {  // Time complexity: O(n)
+	for (int i=0; i<n; i++) {  // Time complexity: O(n log n)
 		Node* tmp = new Node(s[i],freq[i]); // Time complexity: O(1)
-		pq.push(tmp); // Time complexity: O(1)
+		pq.push(tmp); // Time complexity: O(log n)
 	}
 
     // build Huffman tree
-	while (pq.size()>=2) { // Executes approximately n-1 times so the time complexity is O(n)
+	while (pq.size()>=2) { // Executes approximately n-1 times
         // every iteration reduces pq by exactly one node (removes two, adds one)
 	    
 		Node* l = pq.top();                             // Time complexity: O(1)
